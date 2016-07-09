@@ -1,0 +1,3 @@
+class ParaMorse
+
+end
