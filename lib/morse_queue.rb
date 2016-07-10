@@ -28,4 +28,8 @@ class MorseQueue
   def clear
     @queue = Array.new
   end
+
+  def empty?
+    @queue.length == 0
+  end
 end

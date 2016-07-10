@@ -30,4 +30,10 @@ class TestLetterEncoder < Minitest::Test
     assert_equal '111010100011101110111000111011101', @letter_encoder.encode('DOg')
     assert_equal '1011101110001110111011100010111010001110101', @letter_encoder.encode('WorD')
   end
+  def test_encoder_can_encode_more_than_one_word
+    assert_equal '101010100010100000010111000101110101', @letter_encoder.encode('Hi Al')
+  end
+  def test_encoder_can_encode_a_ridiculously_long_sentence
+    assert_equal '10101010001000101110101000101110101000111011101110000001011101110001110111011100010111010001011101010001110101', @letter_encoder.encode('Hello World')
+  end
 end

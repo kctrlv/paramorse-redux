@@ -6,19 +6,26 @@ class LetterEncoder
 
   def encode(letter)
     return @letter_to_morse[letter.downcase] if letter.length == 1
-    convert_word_to_morse(letter.split(//))
+    return encode_multiple_words(letter.split(" ")) if /\s/ =~ letter
+    encode_word(letter.split(//))
   end
 
-  def convert_word_to_morse(word)
-    morse_word = String.new
-    word.each.with_index do |letter, index|
-      unless index == word.length - 1
-        morse_word += @letter_to_morse[letter.downcase] + "000"
-      else
-        morse_word += @letter_to_morse[letter.downcase]
-      end
+  def encode_word(convert_word_to_morse)
+    word = String.new
+    convert_word_to_morse.each.with_index do |letter, index|
+      word += @letter_to_morse[letter.downcase] + "000"
+      word.chomp!('000') if index == convert_word_to_morse.length - 1
     end
-    morse_word
+    word
+  end
+
+  def encode_multiple_words(convert_words_to_morse)
+    words = String.new
+    convert_words_to_morse.each.with_index do |word, index|
+      words += encode_word(word.split(//)) + "000000"
+      words.chomp!('000000') if index == convert_words_to_morse.length - 1
+    end
+    words
   end
 
   def create_encoder_from_file
