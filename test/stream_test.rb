@@ -46,17 +46,14 @@ class TestStream < Minitest::Test
     @stream.receive('1')
     assert_equal 'ha', @stream.decode
   end
-
-  def test_stream_can_encode_letters
-    @stream.receive('h')
-    @stream.receive('e')
-    @stream.receive('l')
-    @stream.receive('l')
-    @stream.receive('o')
-    assert_equal '1010101000100010111010100010111010100011101110111', @stream.encode
+  def test_stream_detects_zeroes
+    assert @stream.detect_end_of_letter('0')
   end
-
-  def test_stream_automatically_decodes_letters
+  def test_stream_receive_detects_zeroes
+    @stream.receive('0')
+    assert_equal '00', @stream.detect_end_of_letter('0')
+  end
+  def test_stream_automatically_dumps_letters
     @stream.receive('1')
     @stream.receive('0')
     @stream.receive('1')
@@ -67,12 +64,6 @@ class TestStream < Minitest::Test
     @stream.receive('0')
     @stream.receive('0')
     @stream.receive('0')
-    @stream.receive('1')
-    @stream.receive('0')
-    @stream.receive('1')
-    @stream.receive('1')
-    @stream.receive('1')
-    assert_equal 'h', @stream.letter_queue.tail
-    assert_equal 'a', @stream.letter_queue.peek
+    assert_equal '1010101', @stream.send_complete_letter
   end
 end
