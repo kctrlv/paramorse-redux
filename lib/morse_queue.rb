@@ -30,6 +30,14 @@ class MorseQueue
     @queue.shift
   end
 
+  def pop_multiple(number)
+    queue_popped = String.new
+    number.times do
+      queue_popped += pop
+    end
+    queue_popped.reverse
+  end
+
   def clear
     @queue = Array.new
   end

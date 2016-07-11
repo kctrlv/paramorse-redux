@@ -79,11 +79,13 @@ class TestingQueue < Minitest::Test
     @q.push('1')
     assert_equal ['1', '0', '0', 'R'], @q.peek_multiple(4)
   end
-#   q.peek_multiple(3)
-# # => ['1', '0', '0']
-# q.count
-# # => 5
-# q.pop
-# # => '1'
-# q.pop_multiple(3
+  def test_queue_can_pop_several_spaces_of_elements
+    @q.push('1')
+    @q.push('0')
+    @q.push('0')
+    @q.push('R')
+    @q.push('1')
+    assert_equal '001', @q.pop_multiple(3)
+    assert_equal 2, @q.count
+  end
 end
