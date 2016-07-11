@@ -21,6 +21,11 @@ class MorseQueue
     @queue[index]
   end
 
+  def peek_multiple(index)
+    index -= 1
+    @queue[0..index]
+  end
+
   def pop
     @queue.shift
   end

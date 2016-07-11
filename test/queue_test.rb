@@ -71,4 +71,19 @@ class TestingQueue < Minitest::Test
     @q.clear
     assert_equal 0, @q.count
   end
+  def test_queue_can_peek_at_several_elements_from_given_index_from_the_front
+    @q.push('1')
+    @q.push('0')
+    @q.push('0')
+    @q.push('R')
+    @q.push('1')
+    assert_equal ['1', '0', '0', 'R'], @q.peek_multiple(4)
+  end
+#   q.peek_multiple(3)
+# # => ['1', '0', '0']
+# q.count
+# # => 5
+# q.pop
+# # => '1'
+# q.pop_multiple(3
 end
